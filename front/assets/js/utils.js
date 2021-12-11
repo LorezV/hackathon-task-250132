@@ -5,6 +5,8 @@ var fileInputElement;
 var downloadView;
 var downloadLabel;
 var downloadLink;
+var fileWrapper;
+var fileWrapperTitle;
 
 function init() {
     fileInputElement = document.getElementById("fileform__inputfile");
@@ -13,6 +15,8 @@ function init() {
     downloadLabel = document.getElementById("download-filename");
     downloadLink = document.getElementById("download-href");
     downloadView = document.querySelector(".download");
+    fileWrapper = document.getElementById("form-file-wrapper");
+    fileWrapperTitle = document.getElementById("form-file-title")
 }
 
 function toggleLoader(toggle) {

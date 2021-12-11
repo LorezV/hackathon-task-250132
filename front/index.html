@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API INTERFACE</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="./assets/styles/main.css">
 </head>
 <body>
@@ -14,8 +18,14 @@
     </div>
 
     <div class="form">
-        <div class="form__file-input">
-            <input type="file" id="fileform__inputfile" accept=".csv,.xml">
+        <div class="form_title">Загрузка файла</div>
+        <div class="form__file-input__wrapper">
+            <div class="form__file" id="form-file-wrapper">
+                <input type="file" id="fileform__inputfile" accept=".csv,.xml">
+                <img src="./assets/img/folder.png" class="img">
+                <img src="./assets/img/folderLoaded.png" class="img-loaded">
+                <div class="form__file__tip" id="form-file-title">Нажмите для выбора файла.</div>
+            </div>
         </div>
         <div class="form_submit"><button id="fileform__submit">Отправить</button></div>
     </div>

@@ -7,7 +7,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 function main() {
     init();
     toggleLoader(false);
-    fileSubmit.addEventListener("click", sendFile)
+    fileSubmit.addEventListener("click", sendFile);
+
+    fileWrapper.addEventListener("click", (event) => {
+        fileInputElement.click();
+    });
+
+    fileWrapper.addEventListener("change", (event) => {
+        fileWrapperTitle.innerHTML = fileInputElement.files[0].name;
+        fileWrapper.classList.add("loaded");
+    });
 }
 
 async function sendFile(event) {

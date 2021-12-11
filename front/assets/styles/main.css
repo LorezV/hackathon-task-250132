@@ -1,6 +1,14 @@
+* {
+    font-family: Montserrat;
+}
+
+body {
+    background-color: #F5F8FF;
+}
+
 .loader {
     position: absolute;
-    background-color: red;
+    background-color: rgb(0, 0, 0, 0.85);
     width: 100%;
     height: 100%;
     left: 0px;
@@ -17,9 +25,11 @@
 }
 
 .loader__circle {
-    width: 200px;
-    height: 200px;
-    background-color: blue;
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/preload.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 
     animation: rolling 2s infinite ease-in-out;
 }
@@ -38,4 +48,109 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.form {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.05);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.form_title {
+    font-size: 26px;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    padding: 40px 0px;
+}
+
+.form__file-input__wrapper {
+    height: 100%;
+    padding: 10px 30px 40px 30px;
+}
+
+.form__file {
+    width: 100%;
+    height: 100%;
+    border: 3px dashed #4E8EF9;
+    border-radius: 15px;
+    background-color: rgb(78, 142, 249, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.form__file:hover, .form__file:focus {
+    background-color: rgb(78, 142, 249, 0.15);
+}
+
+.form__file__tip {
+    color: gray;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.form__file input {
+    display: none;
+}
+
+.form__file img {
+    width: 30%;
+}
+
+.img-loaded {
+    display: none;
+}
+
+.form__file.loaded .img {
+    display: none;
+}
+
+.form__file.loaded .img-loaded {
+    display: block;
+}
+
+.form__file.loaded {
+    border-color: #2ecc71;
+    background-color: rgb(46, 204, 113, 0.05);
+}
+
+.form__file.loaded:hover, .form__file.loaded:focus {
+    background-color: rgb(46, 204, 113, 0.15);
+}
+
+.form_submit button {
+    background-color: #4E8EF9;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    width: 100%;
+    border: none;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding: 10px 0px;
+
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.form_submit button:hover {
+    transform: scale(1.05);
+    border-radius: 15px;
+    background-color: #2ecc71;
 }

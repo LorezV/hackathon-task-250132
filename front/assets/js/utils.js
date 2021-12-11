@@ -2,11 +2,17 @@ var serverAdress = "http://127.0.0.1:7788"
 var loader;
 var fileSubmit; 
 var fileInputElement;
+var downloadView;
+var downloadLabel;
+var downloadLink;
 
 function init() {
     fileInputElement = document.getElementById("fileform__inputfile");
     fileSubmit = document.getElementById("fileform__submit");
     loader = document.querySelector(".loader");
+    downloadLabel = document.getElementById("download-filename");
+    downloadLink = document.getElementById("download-href");
+    downloadView = document.querySelector(".download");
 }
 
 function toggleLoader(toggle) {

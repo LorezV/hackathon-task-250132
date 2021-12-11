@@ -8,22 +8,26 @@ const jsonParser = express.json();
 const parser  = express.urlencoded({extended: false});
 
 app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/downloads"));
 app.use(parser);
 app.use(jsonParser);
 
-app.get("download/:filename", (request, response) => {
-    response.set("Access-Control-Allow-Origin", "*");
-    response.send(request.params["filename"]);
+var fileExtension = ".csv";
 
-    try {
-        console.log(__dirname);
-        response.download(__dirname + "/uploads/" + "03b1cd3cb747017d0becc314169cb7e3");
-    } catch (err) {
-        console.log(err);
-        response.statusCode = 500;
-        response.send(err);
-    }
-});
+// app.get("/api/download/:filename", (request, response) => {
+//     response.set("Access-Control-Allow-Origin", "*");
+//     let filename = request.params["filename"]
+
+//     try {
+//         console.log(__dirname);
+//         response.download("downloads/" + filename + fileExtension);
+
+//     } catch (err) {
+//         console.log(err);
+//         response.statusCode = 500;
+//         response.send(err);
+//     }
+// });
 
 
 app.post("/api/test", upload.single("file"), (request, response) => {
@@ -40,12 +44,20 @@ app.post("/api/test", upload.single("file"), (request, response) => {
         response.send(err);
     }
 
-    // Do stuff
+    // Do stuff with `fileData`
+    fileData = fileData.toUpperCase();
 
     try {
-        let filename = request.file.filename;
+        let date = new Date();
+        let filename = `${date.getFullYear()}.${date.getMonth()}.${date.getMonth()}__${date.getHours()}.${date.getMinutes()}.${date.getSeconds()}__${date.getMilliseconds()}` + fileExtension;
         fs.writeFileSync("downloads/" + filename, fileData);
-        response.send(filename);
+
+        let responseData = {
+            url: filename,
+            text: fileData
+        }
+
+        response.send(JSON.stringify(responseData));
     } catch (err) {
         console.log(err);
         response.statusCode = 500;
@@ -62,22 +74,6 @@ app.post("/api/test", upload.single("file"), (request, response) => {
     }
 
 });
-
-// app.post("/api/test", upload.single("file"), async (request, response) => {
-//     await response.set("Access-Control-Allow-Origin", "*");
-//     console.log(request.file);
-
-//     await fs.readFile(request.file.destination + request.file.filename, "utf8", async (err, data) => {
-//         if (err) throw err;
-//         console.log(data);
-//         response.send("End!")
-//         await fs.unlink(request.file.destination + request.file.filename, async (err) => {
-//             if (err) throw err;
-//             console.log("Файл удалён!");
-//         });
-//     });
-
-// });
 
 app.listen(7788, () => {
     console.log("Сервер запущен...");

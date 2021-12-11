@@ -4,12 +4,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 })
 
 
-window.onload = () => {
-    console.log("window loaded");
-    console.log(document.getElementById("fileform__inputfile"));
-}
-
-
 function main() {
     init();
     toggleLoader(false);
@@ -33,8 +27,8 @@ async function sendFile(event) {
             body: formData
         }).then(async (response) => {
             if (response.ok) {
-                let text = await response.text();
-                fetch(serverAdress + "/download/" + text);
+                let data = await response.json();
+                releaseUrl(serverAdress + "/" + data["url"]);
             }
             toggleLoader(false);
         })
@@ -45,10 +39,18 @@ async function sendFile(event) {
 
 function validateFileForm(file) {
     if (file != null && file != undefined) {
-        console.log(file.type)
         if (file.type == "application/vnd.ms-excel" || file.type == "text/xml") {
             return true;
         }
     }
     return false;
+}
+
+function releaseUrl(url) {
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = true;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
 }

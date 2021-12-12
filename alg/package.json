@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "az": "^0.2.3",
     "snowball-stemmer.jsx": "^0.2.3"
   }
 }

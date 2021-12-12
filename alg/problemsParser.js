@@ -18,10 +18,16 @@ rData = rData.split("\n")
 let dict = {}
 
 for (let i=0; i<rData.length; i++) {
-    let array = rData[i].split(" ");   
+    rData[i]= rData[i].replace(/\s+/g, " ");
+    let array = rData[i].split(" ");    
     let cat_id = array.shift();
+    let problemText = array.join(" ");
     let words = array.map(value => {return stemmer.stemWord(value)});
-    dict[cat_id] = words;
+    dict[cat_id] = {
+        "id": cat_id,
+        "text": problemText,
+        "stemmed": words 
+    };
 }
 
 let jsonData = JSON.stringify(dict);

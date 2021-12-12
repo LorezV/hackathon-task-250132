@@ -150,7 +150,7 @@ function convertReportsToCsv(reports) {
         string += element.messageId + ";";
         string += element.messageText + ";";
         element.coincidences.forEach(coin => {
-            string += coin[0] + ":" + problems[coin[0]].text + ":" + coin[1] + ";";
+            string += coin[0] + ";" + problems[coin[0]].text + ";" + coin[1] + ";";
         });
         string += "\n";
         text += string;

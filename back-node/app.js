@@ -4,6 +4,7 @@ const FuzzySet = require('fuzzyset')
 const fs = require("fs");
 const upload = multer({dest: 'uploads/'})
 const RussianStemmer = require('snowball-stemmer.jsx/dest/russian-stemmer.common.js').RussianStemmer;
+const { request } = require("http");
 
 
 class Report {
@@ -84,6 +85,16 @@ app.post("/api/test", upload.single("file"), (request, response) => {
         console.log(err);
     }
 
+});
+
+app.get("/api/getproblem", (request, response) => {
+    response.set("Access-Control-Allow-Origin", "*");
+    let data = request.body["ask"];
+    let report = new Report(0, 0, 0, data);
+    report.gMessageText = grindingText(data);
+    report.stemmed = stemText(report.gMessageText);
+    let coin = coincidenceReport(report);
+    response.send(JSON.stringify({id: coin[0][0], name: problems[coin[0][0]].text}))
 });
 
 app.listen(7788, () => {

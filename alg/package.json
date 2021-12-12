@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "express": "^4.17.1",
-    "multer": "^1.4.4",
     "snowball-stemmer.jsx": "^0.2.3"
   }
 }

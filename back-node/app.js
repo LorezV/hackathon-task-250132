@@ -2,32 +2,23 @@ const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
 const upload = multer({dest: 'uploads/'})
+const RussianStemmer = require('snowball-stemmer.jsx/dest/russian-stemmer.common.js').RussianStemmer;
 
+// Init express app
 const app  = express()
 const jsonParser = express.json();
 const parser  = express.urlencoded({extended: false});
-
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/downloads"));
 app.use(parser);
 app.use(jsonParser);
 
-var fileExtension = ".csv";
 
-// app.get("/api/download/:filename", (request, response) => {
-//     response.set("Access-Control-Allow-Origin", "*");
-//     let filename = request.params["filename"]
+// Some settings.
+const stemmer = new RussianStemmer();
+const file_extension = ".csv";
+const problems = loadStemmingProblems("problems.json");
 
-//     try {
-//         console.log(__dirname);
-//         response.download("downloads/" + filename + fileExtension);
-
-//     } catch (err) {
-//         console.log(err);
-//         response.statusCode = 500;
-//         response.send(err);
-//     }
-// });
 
 
 app.post("/api/test", upload.single("file"), (request, response) => {
@@ -49,7 +40,7 @@ app.post("/api/test", upload.single("file"), (request, response) => {
 
     try {
         let date = new Date();
-        let filename = `${date.getFullYear()}.${date.getMonth()}.${date.getMonth()}__${date.getHours()}.${date.getMinutes()}.${date.getSeconds()}__${date.getMilliseconds()}` + fileExtension;
+        let filename = `${date.getFullYear()}.${date.getMonth()}.${date.getMonth()}__${date.getHours()}.${date.getMinutes()}.${date.getSeconds()}__${date.getMilliseconds()}` + file_extension;
         fs.writeFileSync("downloads/" + filename, fileData);
 
         let responseData = {
@@ -78,3 +69,12 @@ app.post("/api/test", upload.single("file"), (request, response) => {
 app.listen(7788, () => {
     console.log("Сервер запущен...");
 });
+
+
+
+function loadStemmingProblems(path) {
+    let data = fs.readFileSync(path, "utf8");
+    data = JSON.parse(data);
+    console.log(data);
+    return (data);
+}
